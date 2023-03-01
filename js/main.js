@@ -2,10 +2,8 @@ const STORAGE_KEY = "todo-app";
 
 const app = Vue.createApp({
   data: () => ({
-    id: "",
     newItem: "",
     todos: JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"),
-    toggle: true,
     editedTodo: null,
   }),
   directives: {
@@ -18,7 +16,6 @@ const app = Vue.createApp({
   methods: {
     addItem: function (event) {
       let todo = {
-        id: Date.now(),
         item: this.newItem,
         isDone: false,
       };
