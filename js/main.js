@@ -5,6 +5,7 @@ const app = Vue.createApp({
     newItem: "",
     todos: JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"),
     editedTodo: null,
+    editedText: "",
   }),
   directives: {
     focus: {
@@ -15,7 +16,7 @@ const app = Vue.createApp({
   },
   methods: {
     addItem: function (event) {
-      let todo = {
+      const todo = {
         item: this.newItem,
         isDone: false,
       };
@@ -31,13 +32,14 @@ const app = Vue.createApp({
       this.saveTodos(this.todos);
     },
     editItem(todo) {
-      this.beforeEditCache = todo.item;
+      this.editedText = todo.item;
       this.editedTodo = todo;
     },
-    doneEdit(todo) {
+    doneEdit(todo, editedText) {
       if (!this.editedTodo) {
         return;
       }
+      todo.item = editedText;
       this.editedTodo = null;
       this.saveTodos(this.todos);
       if (!todo.item) {
@@ -46,7 +48,6 @@ const app = Vue.createApp({
     },
     cancelEdit(todo) {
       this.editedTodo = null;
-      todo.item = this.beforeEditCache;
       this.saveTodos(this.todos);
     },
     saveTodos(todos) {

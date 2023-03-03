@@ -23,10 +23,10 @@
               v-if="editedTodo === todo"
               type="text"
               v-focus
-              v-model="todo.item"
-              v-on:keyup.enter="doneEdit(todo)"
+              v-model="editedText"
+              v-on:keyup.enter="doneEdit(todo, editedText)"
+              v-on:blur="doneEdit(todo, editedText)"
               v-on:keyup.escape="cancelEdit(todo)"
-              v-on:blur="doneEdit(todo)"
             />
             <label v-else v-bind:class="{ done:todo.isDone }"
               >{{ todo.item }}</label
@@ -35,10 +35,10 @@
             <button v-on:click="deleteItem">delete</button>
           </li>
         </ul>
+        <pre>{{ $data }}</pre>
       </div>
       <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
       <script src="js/main.js"></script>
     </section>
   </body>
 </html>
-
